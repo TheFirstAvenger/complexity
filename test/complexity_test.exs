@@ -28,4 +28,9 @@ defmodule ComplexityTest do
     everything = %{a: "hi", b: [1, :foo, "42"], c: %{d: :e}}
     assert Complexity.complexity(everything) == 12
   end
+
+  test "Agent" do
+    {:ok, pid} = Agent.start_link(fn -> [1, 2, 3, 4] end)
+    assert Complexity.complexity(pid) == 6
+  end
 end

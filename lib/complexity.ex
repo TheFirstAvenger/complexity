@@ -33,3 +33,15 @@ defimpl Complexity, for: Map do
     end
   end
 end
+
+defimpl Complexity, for: PID do
+  @moduledoc """
+  The complexity of a GenServer/Agent is 1 plus the complexity of its state
+  """
+  def complexity(genserver_pid) do
+    genserver_pid
+    |> :sys.get_state()
+    |> Complexity.complexity()
+    |> Kernel.+(1)
+  end
+end
